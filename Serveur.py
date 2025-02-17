@@ -6,11 +6,11 @@ import subprocess
 
 from GUI import tkinterhome
 
+IPs_connectes = set()
+
 app = Flask("Ain't cappin this pic machine ain't doin' shit.")
 
 @app.route('/')
-
-IPs_connectes = set()
 
 def index():
     
@@ -58,7 +58,7 @@ def get_IPs():
     
     return jsonify({"IPs": list(IPs_connectes)})
 
-@app.route("/run_tk", method = ['POST'])
+@app.route("/run_tk", methods = ['POST'])
 
 def run_tkinterhome():
     
