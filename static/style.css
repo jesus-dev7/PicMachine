@@ -1,0 +1,14 @@
+body {
+    background-color: lightblue;
+}
+
+h1 {
+    color: navy;
+    text-align: center;
+}
+
+.container {
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
+}
