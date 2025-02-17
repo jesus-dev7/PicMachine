@@ -60,8 +60,8 @@ def img_get():
 
 def startGUI():
 
-    threading.Thread(target = tkinterhome, args = (list(list_ids))).start()
+    threading.Thread(target = tkinterhome, args = (list(list_ids),)).start()
     
     return jsonify({"message": "GUI lancee avec IPs affichees."})
 
-app.run(host="0.0.0.0", debug=False, port=6271)
+app.run(host="0.0.0.0", debug=False, port=6269)
