@@ -4,7 +4,7 @@ from tkinter import ttk, messagebox
 
 from tkinter import Tk, Label
 
-def tkinterhome():
+def tkinterhome(IPs):
     
     """Fenêtre principale.
     
@@ -27,7 +27,7 @@ def tkinterhome():
     
     global Bouton_
     
-    LabelGest = tk.Label(frm, text="IPs connectes.", bg = "Orange", relief = "sunken") #Une étiquette.
+    LabelGest = tk.Label(frm, text = f"IPs connectées: {IPs}", bg = "Orange", relief = "sunken") #Une étiquette.
     
     LabelGest.grid(column=0, row=0, sticky = "nsew") #Etiquette.
     
