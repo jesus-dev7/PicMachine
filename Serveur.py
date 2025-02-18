@@ -24,7 +24,7 @@ def index():
     
     list_ids.add(client_ip)
 
-    return (render_template("GenPWeb.html"))
+    return (render_template("Authentification.html"))
 
 @app.route('/Resultat')
 
@@ -69,5 +69,49 @@ def startGUI():
     threading.Thread(target = tkinterhome, args = (list(list_ids),)).start()
     
     return jsonify({"message": "GUI lancee avec IPs affichees."})
+
+@app.route("/auth_get", methods = ["POST"])
+
+def auth():
+    
+    Valid = 0
+    
+    DonneesU = {
+        
+        "Soka7": "192.168.0.47"
+        
+    }
+    
+    MdpU = {
+        
+        "Soka7": "BobF4*10^70N"
+        
+    }
+    
+    Pseudo = request.form.get("Pseudo")
+    
+    try:
+    
+        if request.remote_addr == DonneesU[Pseudo]:
+            
+            Valid += 1
+            
+    except:
+        
+        return("Va jouer aux heros ailleurs.")
+    
+    Mdp = request.form.get("Mdp")
+    
+    if Mdp == MdpU[Pseudo]:
+        
+        Valid += 1
+    
+    if Valid == 2:
+        
+        return(render_template("GenPWeb.html"))
+    
+    else:
+        
+        return("Va jouer aux heros ailleurs.")
 
 app.run(host="0.0.0.0", debug=False, port=6269)

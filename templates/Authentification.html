@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{url_for('static', filename = 'style.css')}}">
+
+    <title>Document</title>
+
+</head>
+
+<body>
+    
+    <h1>Authentification</h1>
+
+    <div class = "container">
+
+        <form action = "/auth_get" method = "post">
+
+            <input type = text name = "Pseudo" placeholder = "Pseudo"  required></input>
+
+            <input type = text name = "Mdp" placeholder = "Mot de passe"  required></input>
+
+            <button type = "submit">Envoyer</button>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>
