@@ -56,6 +56,12 @@ def img_get():
     
     return(send_from_directory("static", img_src))
 
+@app.route("/recup_IPs")
+
+def Recup_Ips():
+    
+    return jsonify({"IPs": list(list_ids)})
+
 @app.route("/run_tk")
 
 def startGUI():
