@@ -16,3 +16,15 @@ document.querySelector('#affichage_IPs').addEventListener('click', function() {
         .catch(error => console.error('Erreur:', error));
 
 });
+
+document.querySelector('#BtnChat').addEventListener('click', function() {
+
+    fetch("/LancementChat")
+
+        .then(response => response.json())
+
+        .then(data => console.log(data.message))
+
+        .catch(error => console.error('Erreur:', error));
+
+});

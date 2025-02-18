@@ -10,7 +10,11 @@ import threading
 
 from GUI import tkinterhome
 
+from GUI import tkinterhomeChat
+
 list_ids = set()
+
+txt_chat = ""
 
 app = Flask("Ain't cappin this pic machine ain't doin' shit.")
 
@@ -78,13 +82,17 @@ def auth():
     
     DonneesU = {
         
-        "Soka7": "192.168.0.47"
+        "Soka7": "192.168.0.47",
+        
+        "Patrick": "192.168.0.47"
         
     }
     
     MdpU = {
         
-        "Soka7": "BobF4*10^70N"
+        "Soka7": "BobF4*10^70N",
+        
+        "Patrick": "BobCunFou"
         
     }
     
@@ -113,5 +121,37 @@ def auth():
     else:
         
         return("Va jouer aux heros ailleurs.")
+    
+@app.route("/recupChat", methods = ["GET", "POST"])
+    
+def recup_chat():
+    
+    if request.method == "POST":
+    
+        try:
+        
+            global txt_chat
+            
+            recup = request.get_json().get("message", "")
+            
+            txt_chat += "\n" + recup
+            
+            return jsonify({"status": "Message reçu"}), 200  # Confirmer l'ajout
+        
+        except Exception as e:
+            
+            return jsonify({"error": str(e)}), 400  # Retourner une erreur en cas de problème
+
+    elif request.method == "GET":
+    
+            return(jsonify({"Chat": txt_chat}))
+
+@app.route("/LancementChat")
+
+def LancementChat():
+    
+    threading.Thread(target = tkinterhomeChat).start()
+    
+    return jsonify({"message": "Chat lance."})
 
 app.run(host="0.0.0.0", debug=False, port=6269)
