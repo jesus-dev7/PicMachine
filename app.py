@@ -4,6 +4,10 @@ import subprocess
 from threading import Thread
 import threading
 
+global chat_messages
+
+chat_messages = []
+
 # Dictionnaires pour utilisateurs et mots de passe
 users = {
     "Soka7": "192.168.0.47",
@@ -86,5 +90,21 @@ def auth():
     else:
         return "Nom d'utilisateur ou mot de passe incorrect", 403
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=6269, debug=False)
+@app.route("/recupChat", methods=["GET", "POST"])
+def recup_chat():
+    if request.method == "GET":
+        
+        return jsonify({"Chat": chat_messages}) # Si la méthode est GET, on retourne la liste des messages.
+    
+    elif request.method == "POST": # Si la méthode est POST, on ajoute un message à la liste des messages.
+        
+        message = request.json.get("message")  # Récupère le message envoyé en POST
+        
+        if message:
+            
+            chat_messages.append(message)  # Ajoute le message à la liste
+            
+        return jsonify({"status": "Message ajouté"})
+
+
+app.run(host="0.0.0.0", port=6269, debug=False)

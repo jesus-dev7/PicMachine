@@ -28,22 +28,19 @@ setInterval(IPs, 5000);
 // Mettre à jour le chat
 async function updtChat() {
     const ContenuChat_ = document.getElementById("Chat");
-    const reponse_ = await fetch("http://localhost:6269/recupChat");
+    const reponse_ = await fetch("/recupChat");
     const data = await reponse_.json();
 
-    if (data.Chat && data.Chat.length > 0) {
-        ContenuChat_.innerHTML = data.Chat.join("<br>");
-    } else {
-        ContenuChat_.innerHTML = "Chat vide.";
-    }
+    ContenuChat_.innerHTML = data.Chat.join("<br>");
 }
 
 updtChat();
+
 setInterval(updtChat, 5000);
 
 // Fonction pour envoyer un message
 async function SendChat(entree) {
-    const url = "http://localhost:6269/recupChat";
+    const url = "/recupChat";
     const data = {"message": entree};
 
     const reponse_ = await fetch(url, {
@@ -64,10 +61,10 @@ async function RecupMessage() {
 
     let entree = `${Pseudo}: ${txt_p}`;
 
-    if (entree.length > 0) {
-        SendChat(entree);
-        document.getElementById("messageInput").value = "";
-    }
+    SendChat(entree);
+
+    document.getElementById("messageInput").value = "";
+
 }
 
 // Événement sur le bouton "Envoyer"
