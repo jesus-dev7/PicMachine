@@ -1,37 +1,21 @@
 <!DOCTYPE html>
-
-<html lang="en">
-
+<html lang="fr">
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="{{url_for('static', filename = 'style.css')}}">
-
-    <title>Document</title>
-
+    <title>Authentification</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
 </head>
-
 <body>
-    
     <h1>Authentification</h1>
-
-    <div class = "container">
-
-        <form action = "/auth_get" method = "post">
-
-            <input type = text name = "Pseudo" placeholder = "Pseudo"  required></input>
-
-            <input type = text name = "Mdp" placeholder = "Mot de passe"  required></input>
-
-            <button type = "submit">Envoyer</button>
-
+    <div class="container_">
+        <form method="POST" action="/auth_get">
+            <label for="Pseudo">Pseudo :</label><br>
+            <input type="text" id="Pseudo" name="Pseudo"><br><br>
+            <label for="Mdp">Mot de passe :</label><br>
+            <input type="password" id="Mdp" name="Mdp"><br><br>
+            <button type="submit">Se connecter</button>
         </form>
-
     </div>
-
 </body>
-
 </html>
