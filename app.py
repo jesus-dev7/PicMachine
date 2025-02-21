@@ -41,7 +41,7 @@ def pic_machine():
 # Page du chat
 @app.route('/Chat')
 def chat():
-    return render_template("Chat.html")
+    return render_template("chat.html")
 
 # Récupérer une image aléatoire
 @app.route('/img_get')
@@ -87,4 +87,4 @@ def auth():
         return "Nom d'utilisateur ou mot de passe incorrect", 403
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=6269, debug=True)
+    app.run(host="0.0.0.0", port=6269, debug=False)

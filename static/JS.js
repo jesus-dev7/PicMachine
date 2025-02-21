@@ -4,17 +4,14 @@ document.querySelector('.btnIm').addEventListener('click', function() {
     NewImage.src = "/img_get";
 });
 
-// Démarrer le chat
 document.querySelector('#BtnChat').addEventListener('click', function() {
-    fetch("/LancementChat")
-        .then(response => response.json())
-        .then(data => console.log(data.message))
-        .catch(error => console.error('Erreur:', error));
+    window.location.href = "/Chat";  // Redirige vers la page Chat
 });
+
 
 // Récupérer et afficher les IPs
 async function IPs() {
-    const reponse = await fetch("http://localhost:6269/recup_IPs");
+    const reponse = await fetch("/recup_IPs");
     const data = await reponse.json();
     const ListIPs = document.getElementById("IPS");
 
@@ -58,7 +55,7 @@ async function SendChat(entree) {
 
 // Fonction pour récupérer le message et l'envoyer
 async function RecupMessage() {
-    const Pseudo_ = await fetch("http://localhost:6269/recupPseudo");
+    const Pseudo_ = await fetch("/recupPseudo");
     const data = await Pseudo_.json();
 
     let txt_p = document.getElementById("messageInput").value;
