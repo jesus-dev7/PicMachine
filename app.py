@@ -1,12 +1,14 @@
 from random import randint
+
 from flask import Flask, request, render_template, send_from_directory, jsonify
+
 import subprocess
+
 from threading import Thread
+
 import threading
 
-global chat_messages
-
-chat_messages = []
+from flask_socketio import SocketIO, send
 
 # Dictionnaires pour utilisateurs et mots de passe
 users = {
@@ -24,10 +26,11 @@ passwords = {
 # Liste des IPs connectées
 list_ids = set()
 
-# Chat
-txt_chat = ""
-
 app = Flask("Serv")
+
+app.config['SECRET_KEY'] = 'secret!'
+
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Page principale d'authentification
 @app.route('/')
@@ -90,21 +93,9 @@ def auth():
     else:
         return "Nom d'utilisateur ou mot de passe incorrect", 403
 
-@app.route("/recupChat", methods=["GET", "POST"])
-def recup_chat():
-    if request.method == "GET":
-        
-        return jsonify({"Chat": chat_messages}) # Si la méthode est GET, on retourne la liste des messages.
-    
-    elif request.method == "POST": # Si la méthode est POST, on ajoute un message à la liste des messages.
-        
-        message = request.json.get("message")  # Récupère le message envoyé en POST
-        
-        if message:
-            
-            chat_messages.append(message)  # Ajoute le message à la liste
-            
-        return jsonify({"status": "Message ajouté"})
+@socketio.on('message')
+def handle_message(msg):
+    print(f'Message reçu : {msg}')
+    send(msg, broadcast=True)
 
-
-app.run(host="0.0.0.0", port=6269, debug=False)
+socketio.run(app, host='0.0.0.0', port=6269, debug = False)

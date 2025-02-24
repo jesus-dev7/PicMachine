@@ -3,16 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat</title>
+    <title>Chat Flask</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
 </head>
 <body>
-    <h1>Chat</h1>
-    <div class="container_">
-        <p id="Chat">Chargement du chat en cours...</p>
-    </div>
-    <textarea id="messageInput" placeholder="Écrivez votre message..." rows="4" cols="50"></textarea><br>
-    <button id="Send">Envoyer</button>
-    <script src="{{url_for('static', filename='JS.js')}}"></script>
+    <h2>Chat</h2>
+    <ul id="messages"></ul>
+    <input id="message" autocomplete="off">
+    <button onclick="sendMessage()">Envoyer</button>
+
+    <script>
+
+        var socket = io();
+
+        socket.on('message', function(msg) {
+
+            var li = document.createElement("li");
+
+            li.appendChild(document.createTextNode(msg));
+
+            document.getElementById("messages").appendChild(li);
+
+        });
+
+        async function sendMessage() {
+            var pseudo = await fetch("/recupPseudo").then(res => res.json()).then(data => data.Pseudo);
+            var msg = document.getElementById("message").value;
+
+            socket.send(pseudo + " : " + msg);  // Ajoute le pseudo au message
+            document.getElementById("message").value = '';
+        }
+
+    </script>
+    
 </body>
+
 </html>

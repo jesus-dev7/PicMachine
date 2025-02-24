@@ -1,8 +1,8 @@
-// Générer une nouvelle image
 document.querySelector('.btnIm').addEventListener('click', function() {
     var NewImage = document.getElementById("NewImage");
-    NewImage.src = "/img_get";
+    NewImage.src = "/img_get?" + new Date().getTime();  // Force le rechargement
 });
+
 
 document.querySelector('#BtnChat').addEventListener('click', function() {
     window.location.href = "/Chat";  // Redirige vers la page Chat
@@ -24,48 +24,3 @@ async function IPs() {
 
 IPs();
 setInterval(IPs, 5000);
-
-// Mettre à jour le chat
-async function updtChat() {
-    const ContenuChat_ = document.getElementById("Chat");
-    const reponse_ = await fetch("/recupChat");
-    const data = await reponse_.json();
-
-    ContenuChat_.innerHTML = data.Chat.join("<br>");
-}
-
-updtChat();
-
-setInterval(updtChat, 5000);
-
-// Fonction pour envoyer un message
-async function SendChat(entree) {
-    const url = "/recupChat";
-    const data = {"message": entree};
-
-    const reponse_ = await fetch(url, {
-        headers: {"Content-Type": "application/json"},
-        method: "POST",
-        body: JSON.stringify(data),
-    });
-}
-
-// Fonction pour récupérer le message et l'envoyer
-async function RecupMessage() {
-    const Pseudo_ = await fetch("/recupPseudo");
-    const data = await Pseudo_.json();
-
-    let txt_p = document.getElementById("messageInput").value;
-
-    let Pseudo = data.Pseudo || "Pseudo vide."; // Pseudo ou "Pseudo vide" si non défini
-
-    let entree = `${Pseudo}: ${txt_p}`;
-
-    SendChat(entree);
-
-    document.getElementById("messageInput").value = "";
-
-}
-
-// Événement sur le bouton "Envoyer"
-document.querySelector('#Send').addEventListener('click', RecupMessage);
