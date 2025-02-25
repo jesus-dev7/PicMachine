@@ -1,28 +1,47 @@
 body {
+    
     background-color: lightblue;
+
 }
 
 h1 {
+
     color: navy;
+
     text-align: center;
+
 }
 
 .container {
+
     margin: 0 auto;
+
     width: 80%;
+
     text-align: center;
+
 }
 
 .container_ {
+
     margin: 0 auto;
+
     width: 30%;
+
     text-align: center;
+
     border: 5px solid black;
+
     border-radius: 20px;
+
 }
 
 .btnIm {
+
     margin: auto;
+
     width: 100px;
+
     text-align: center;
+
 }

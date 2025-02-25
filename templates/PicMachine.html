@@ -1,21 +1,41 @@
 <!DOCTYPE html>
+
 <html lang="fr">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Pic Machine</title>
+
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+
 </head>
+
 <body>
+
     <h1>Bienvenue sur Pic Machine</h1>
+
     <div class="container_">
+
         <img id="NewImage" src="{{url_for('static', filename='images/image1.jpeg')}}" alt="Meme généré">
+
         <button class="btnIm">Générer</button>
+
     </div>
+
     <div>
-        <button id="BtnChat">Démarrer Chat</button>
-        <div id="IPS"></div> <!-- Zone pour afficher les IPs -->
+
+        <button id="BtnChat">Démarrer Chat</button> <!--Le bouton pour demarrer le chat.-->
+
+        <div id="IPS"></div> <!--La place ou sont affichees les IPs.-->
+
     </div>
+
     <script src="{{url_for('static', filename='JS.js')}}"></script>
+
 </body>
+
 </html>

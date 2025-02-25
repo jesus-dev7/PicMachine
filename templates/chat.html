@@ -28,11 +28,19 @@
         });
 
         async function sendMessage() {
-            var pseudo = await fetch("/recupPseudo").then(res => res.json()).then(data => data.Pseudo);
+
+            var pseudo = await fetch("/recupPseudo")
+            
+            .then(res => res.json())
+            
+            .then(data => data.Pseudo);
+
             var msg = document.getElementById("message").value;
 
-            socket.send(pseudo + " : " + msg);  // Ajoute le pseudo au message
-            document.getElementById("message").value = '';
+            socket.send(pseudo + " : " + msg);  //Envoie le message.
+
+            document.getElementById("message").value = ''; //Efface la zone.
+
         }
 
     </script>
