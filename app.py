@@ -144,10 +144,10 @@ def chat():
 
 @socketio.on('message')
 
-def handle_message(msg):
+def handle_message(newmsg):
     
-    print(f'Message reçu : {msg}')
+    print(f'Message reçu : {newmsg}')
     
-    send(msg, broadcast=True)
+    send(newmsg, broadcast=True)
 
 socketio.run(app, host='0.0.0.0', port=6269, debug = False)

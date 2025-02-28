@@ -27,6 +27,50 @@
 
         });
 
+        function Replace(msg) {
+            
+            let Dico = { //La sélection des émojis s'est faite avec ChatGPT.
+
+                ":smile:" : "😃",
+
+                ":thumbup:" : "👍",
+
+                ":laugh:" : "🤣",
+
+                ":heart:" : "❤️",
+
+                ":handshake:" : "🤝",
+
+                ":rocketship:" : "🚀",
+
+                ":cool:" : "😎",
+
+                ":angry:" : "😡",
+
+                ":thinking:" : "🤔",
+
+                ":impressive:" : "🤯",
+
+                ":kiss:" : "😘",
+
+                ":love:" : "😍",
+
+                ":call:" : "🤙",
+
+                ":women:" : "☕",
+
+                ":lifting:" : "🏋️‍♂️",
+
+                ":trophy:" : "🏆"
+
+            }
+
+            let regex = new RegExp(Object.keys(Dico).join("|"), "g")
+
+            return msg.replace(regex, match => Dico[match] || match)
+
+        }
+
         async function sendMessage() {
 
             var pseudo = await fetch("/recupPseudo")
@@ -37,7 +81,9 @@
 
             var msg = document.getElementById("message").value;
 
-            socket.send(pseudo + " : " + msg);  //Envoie le message.
+            newmsg = Replace(msg)
+
+            socket.send(pseudo + " : " + newmsg);  //Envoie le message.
 
             document.getElementById("message").value = ''; //Efface la zone.
 
