@@ -10,13 +10,13 @@ import threading
 
 from flask_socketio import SocketIO, send
 
-from flask import session
-
 # Dictionnaires pour utilisateurs et mots de passe
 
 bannis = []
 
 users = {
+    
+    "Jeb": "192.168.0.41",
     
     "Soka7": "192.168.0.47",
     
@@ -27,6 +27,8 @@ users = {
 }
 
 passwords = {
+    
+    "Jeb": "Bjr",
     
     "Soka7": "BobF4*10^70N",
     
@@ -118,9 +120,11 @@ def recup_pseudo():
     
     if Val in bannis:
         
-        return render_template("Authentification.html")
+        return(render_template("{{url_for('templates', filename='Authentification.html')}}"))
     
     pseudo = {
+        
+        "192.168.0.41": "Jeb",
         
         "192.168.0.47": "Soka7",
         
@@ -176,7 +180,7 @@ def AddBanned():
     
     socketio.emit('redirige', {"url": "/Authentification.html"}, room = users[PseuDo])
     
-    return jsonify({"message": "Le client a été banni"}), 200
+    return(render_template("chat.html"))
 
 # Authentification des utilisateurs
 
