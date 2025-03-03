@@ -13,6 +13,8 @@
     <input id="message" autocomplete="off">
     <button onclick="sendMessage()">Envoyer</button>
 
+    <button id = "PageBan">Ban</button>
+
     <script>
 
         var socket = io();
@@ -89,8 +91,26 @@
 
         }
 
+        document.querySelector('#PageBan').addEventListener('click', function() {
+
+            var rangUser = fetch("/rank")
+
+            .then(res => res.json())
+
+            .then(data => {var Validation = data.rank
+
+                if (Validation === 1){
+
+                    window.location.href = "/bannn";  // Redirige vers la page Ban
+            
+                }}
+
+            )
+
+        });
+        
     </script>
-    
+
 </body>
 
 </html>

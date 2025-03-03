@@ -1,18 +1,3 @@
-document.querySelector('.btnIm').addEventListener('click', function() {
-    
-    var NewImage = document.getElementById("NewImage");
-
-    NewImage.src = "/img_get?" + new Date().getTime();  // Force le rechargement
-
-});
-
-document.querySelector('#BtnChat').addEventListener('click', function() {
-
-    window.location.href = "/Chat";  // Redirige vers la page Chat
-
-});
-
-
 // Récupérer et afficher les IPs
 
 async function IPs() {
@@ -38,3 +23,17 @@ async function IPs() {
 IPs();
 
 setInterval(IPs, 5000);
+
+document.querySelector('.btnIm').addEventListener('click', function() {
+    
+    var NewImage = document.getElementById("NewImage");
+
+    NewImage.src = "/img_get?" + new Date().getTime();  // Force le rechargement
+
+});
+
+document.querySelector('#BtnChat').addEventListener('click', function() {
+
+    window.location.href = "/Chat";  // Redirige vers la page Chat
+
+});

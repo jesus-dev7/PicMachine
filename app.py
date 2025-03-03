@@ -10,7 +10,11 @@ import threading
 
 from flask_socketio import SocketIO, send
 
+from flask import session
+
 # Dictionnaires pour utilisateurs et mots de passe
+
+bannis = []
 
 users = {
     
@@ -18,7 +22,7 @@ users = {
     
     "Patrick": "192.168.0.47",
     
-    "Annafee": "192.168.0.23"
+    "Annafee": "127.0.0.1"
     
 }
 
@@ -104,17 +108,75 @@ def recup_ips():
 
 def recup_pseudo():
     
+    print(request.remote_addr)
+    
+    print(bannis)
+    
+    Val = request.remote_addr
+    
+    Val = str(Val)
+    
+    if Val in bannis:
+        
+        return render_template("Authentification.html")
+    
     pseudo = {
         
         "192.168.0.47": "Soka7",
         
-        "192.168.0.23": "Annafee",
+        "127.0.0.1": "Annafee",
         
         "127.0.0.1": "Soka7"
         
     }
     
-    return jsonify({"Pseudo": pseudo.get(request.remote_addr, "Inconnu")})
+    pseudO = pseudo.get(request.remote_addr, "Inconnu")
+    
+    return jsonify({"Pseudo": pseudO})
+
+@app.route("/rank")
+
+def rank():
+    
+    Valid = 0
+    
+    ranks = {
+        
+        "192.168.0.47": "MC",
+        
+        "127.0.0.1": "MC"
+        
+    }
+    
+    for objct in ranks:
+        
+        if request.remote_addr == objct:
+            
+            if ranks[objct] == "MC":
+                
+                Valid = 1
+    
+    return jsonify({"rank": Valid})
+    
+@app.route("/bannis")
+
+def listes_bannis():
+    
+    return(bannis)
+
+@app.route("/addbanned", methods = ["POST"])
+    
+def AddBanned():
+    
+    IPBanni = users[request.form.get('Pseudo')]
+    
+    bannis.append(IPBanni)
+    
+    PseuDo = request.form.get('Pseudo')
+    
+    socketio.emit('redirige', {"url": "/Authentification.html"}, room = users[PseuDo])
+    
+    return jsonify({"message": "Le client a été banni"}), 200
 
 # Authentification des utilisateurs
 
@@ -126,7 +188,7 @@ def auth():
     
     mdp = request.form.get("Mdp")
     
-    if pseudo in users and passwords.get(pseudo) == mdp:
+    if pseudo in users and passwords.get(pseudo) == mdp and request.remote_addr not in bannis:
         
         return render_template("PicMachine.html")  # Redirige vers la page principale après une authentification réussie
     
@@ -141,6 +203,12 @@ def auth():
 def chat():
     
     return render_template("chat.html")
+
+@app.route('/bannn')
+
+def Ban__():
+    
+    return render_template("Ban.html")
 
 @socketio.on('message')
 
